@@ -1,0 +1,69 @@
+SELECT*
+FROM ['Meal_Sales(430)$']
+
+
+--Adjusting date format
+SELECT Date, CONVERT(Date, Date)
+FROM ['Meal_Sales(430)$']
+
+UPDATE ['Meal_Sales(430)$']
+SET Date=CONVERT(Date, Date)
+
+--Updating 'price' column
+SELECT price as old_price
+
+FROM ['Meal_Sales(430)$']
+
+
+ALTER TABLE ['Meal_Sales(430)$']
+ALTER COLUMN  old_price  float;
+
+Update ['Meal_Sales(430)$']
+SET old_price = Price
+
+ALTER TABLE ['Meal_Sales(430)$']
+ADD  new_price  float;
+
+
+
+--Increasing Prices on Menu Items
+Update ['Meal_Sales(430)$']
+SET new_price  = Price + (price * .1)
+
+
+--Cleaning Customer Name Column
+SELECT [Customer Name] , TRIM ([Customer Name]) as clean_customer_name
+FROM ['Meal_Sales(430)$']
+
+
+SELECT [Menu Item] , TRIM ([Menu Item]) as clean_menu_item
+FROM ['Meal_Sales(430)$']
+
+
+
+SELECT*
+FROM ['Meal_Sales(430)$']
+
+
+SELECT  TOP 1 [Menu Item], new_price
+FROM ['Meal_Sales(430)$']
+ORDER by  new_price DESC;
+
+
+SELECT  [Menu Item], new_price 
+FROM ['Meal_Sales(430)$']
+GROUP BY   [Menu Item] , new_price 
+ORDER BY new_price DESC;
+
+
+SELECT [Menu Item], SUM (total) as total_sales
+FROM ['Meal_Sales(430)$']
+GROUP BY [Menu Item]
+ORDER BY total_sales DESC;
+
+
+
+--Deleting Columns
+
+ALTER TABLE ['Meal_Sales(430)$']
+DROP COLUMN old_price, date
